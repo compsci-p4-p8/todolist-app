@@ -4,7 +4,7 @@ Requires: `uv`.
 
 Run
 - `uv sync`
-- `uv run python app.py`
+- `uv run app.py`
 - Open http://127.0.0.1:5000
 
 Use
