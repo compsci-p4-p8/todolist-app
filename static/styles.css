@@ -1,0 +1,5 @@
+/* Minimal styles: keep it plain and simple */
+body { font-family: Arial, sans-serif; margin: 1rem; }
+form { margin: .5rem 0; }
+input, button { padding: .4rem; }
+ul { padding-left: 1.2rem; }

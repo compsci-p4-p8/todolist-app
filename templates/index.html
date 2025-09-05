@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <h1>Todo List</h1>
+    <p>Logged in as: <strong>{{ user['username'] }}</strong></p>
+    <form method="post" action="{{ url_for('logout') }}">
+      <button type="submit">Logout</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" action="{{ url_for('add') }}">
+      <input type="text" name="title" placeholder="New todo" required />
+      <button type="submit">Add</button>
+    </form>
+
+    {% if todos %}
+      <ul>
+        {% for t in todos %}
+          <li>
+            <form style="display:inline" method="post" action="{{ url_for('toggle', todo_id=t['id']) }}">
+              <input type="checkbox" onchange="this.form.submit()" {% if t['completed'] %}checked{% endif %} />
+            </form>
+            <span {% if t['completed'] %}style="text-decoration: line-through; color: #666;"{% endif %}>{{ t['title'] }}</span>
+            <form style="display:inline" method="post" action="{{ url_for('delete', todo_id=t['id']) }}">
+              <button type="submit">Delete</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+      <form method="post" action="{{ url_for('clear_completed') }}">
+        <button type="submit">Clear completed</button>
+      </form>
+    {% else %}
+      <p>No todos yet.</p>
+    {% endif %}
+  </body>
+  </html>

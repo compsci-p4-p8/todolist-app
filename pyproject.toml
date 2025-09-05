@@ -1,7 +1,13 @@
 [project]
 name = "todolist-app"
 version = "0.1.0"
-description = "Add description here"
+description = "Minimal Flask + SQLite Todo List (MVP)"
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = []
+requires-python = ">=3.9"
+dependencies = [
+  "Flask>=3.0.0,<4",
+]
+
+[tool.uv]
+# Use uv's default settings. `uv sync` creates a venv and installs deps.
+
