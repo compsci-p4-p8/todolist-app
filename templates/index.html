@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>To-Do List</title>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+	<style>
+		body {
+			font-family: 'Roboto', Arial, sans-serif;
+			margin: 0;
+			background: linear-gradient(120deg, #f0f4f8 0%, #e9eafc 100%);
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.container {
+			background: #fff;
+			margin-top: 60px;
+			padding: 32px 28px 24px 28px;
+			border-radius: 12px;
+			box-shadow: 0 4px 24px rgba(60,72,100,0.10);
+			width: 100%;
+			max-width: 420px;
+		}
+		h1 {
+			color: #4f5bd5;
+			font-weight: 700;
+			margin-bottom: 24px;
+			text-align: center;
+		}
+		form {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 24px;
+		}
+		input[type="text"] {
+			flex: 1;
+			padding: 10px 12px;
+			border: 1px solid #d1d5db;
+			border-radius: 6px;
+			font-size: 1rem;
+			outline: none;
+			transition: border 0.2s;
+		}
+		input[type="text"]:focus {
+			border: 1.5px solid #4f5bd5;
+		}
+		button[type="submit"] {
+			background: #4f5bd5;
+			color: #fff;
+			border: none;
+			border-radius: 6px;
+			padding: 10px 18px;
+			font-size: 1rem;
+			font-weight: 700;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+		button[type="submit"]:hover {
+			background: #3840a7;
+		}
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		li {
+			background: #f6f7fb;
+			margin-bottom: 10px;
+			padding: 12px 16px;
+			border-radius: 6px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 1.05rem;
+			box-shadow: 0 1px 2px rgba(60,72,100,0.04);
+		}
+		.delete-btn {
+			color: #e74c3c;
+			text-decoration: none;
+			font-weight: 700;
+			font-size: 0.98rem;
+			padding: 4px 10px;
+			border-radius: 4px;
+			transition: background 0.15s;
+		}
+		.delete-btn:hover {
+			background: #ffeaea;
+		}
+		@media (max-width: 500px) {
+			.container { padding: 16px 6px; }
+			h1 { font-size: 1.4rem; }
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>To-Do List</h1>
+		<form action="/add" method="post">
+			<input type="text" name="task" placeholder="Add a new task" required>
+			<button type="submit">Add</button>
+		</form>
+		<ul>
+			{% for todo in todos %}
+			<li>
+				{{ todo[1] }}
+				<a class="delete-btn" href="/delete/{{ todo[0] }}">Delete</a>
+			</li>
+			{% else %}
+			<li>No tasks yet!</li>
+			{% endfor %}
+		</ul>
+	</div>
+</body>
+</html>
