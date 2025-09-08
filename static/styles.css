@@ -1,5 +1,45 @@
 /* Minimal styles: keep it plain and simple */
-body { font-family: Arial, sans-serif; margin: 1rem; }
-form { margin: .5rem 0; }
-input, button { padding: .4rem; }
-ul { padding-left: 1.2rem; }
+
+body {
+    font-family: Arial, sans-serif;  /* new font */
+    background-color: #f0f2f5;       
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;          
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+}
+
+.todo-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+button {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+}
+button:hover {
+    background-color: #45a049;
+}
