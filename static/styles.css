@@ -1,0 +1,113 @@
+/* Minimal styles: keep it plain and simple */
+
+
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated background bubbles */
+.bg-anim {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.35;
+    animation: float 18s infinite linear;
+}
+@keyframes float {
+    0% { transform: translateY(100vh) scale(1); opacity: 0.35; }
+    50% { opacity: 0.5; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0.2; }
+}
+
+.container {
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;          
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+    margin-top: 60px;
+    z-index: 1;
+    position: relative;
+}
+
+.todo-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+
+button {
+    border: none;
+    padding: 7px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+    transition: background 0.2s, transform 0.1s;
+}
+button:hover {
+    background: linear-gradient(90deg, #6fd6ff 0%, #4f8cff 100%);
+    transform: translateY(-2px) scale(1.04);
+}
+
+input[type="text"] {
+    padding: 8px 12px;
+    border: 1.5px solid #b2c7e6;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    margin-right: 8px;
+    transition: border 0.2s;
+}
+input[type="text"]:focus {
+    border: 1.5px solid #4f8cff;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+li {
+    margin-bottom: 12px;
+    background: #f6faff;
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(79,140,255,0.04);
+}
+
+@media (max-width: 500px) {
+    .container { width: 98vw; padding: 10px; }
+}
