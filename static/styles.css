@@ -1,0 +1,57 @@
+/* Modern styles and animated background for the todo app */
+:root{
+  --accent-1: #4f8cff;
+  --accent-2: #6fd6ff;
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  background:linear-gradient(120deg,#f3f8ff 0%,#eef6ff 100%);
+  color:#111827;
+  overflow:hidden;
+}
+.bg-anim{position:fixed;inset:0;z-index:0;pointer-events:none}
+.bubble{position:absolute;border-radius:50%;opacity:0.32;filter:blur(6px);animation:float 20s linear infinite}
+@keyframes float{
+  0%{transform:translateY(110vh) scale(1);opacity:0}
+  10%{opacity:0.35}
+  50%{opacity:0.5}
+  100%{transform:translateY(-20vh) scale(1.2);opacity:0}
+}
+.container{
+  width:96%;
+  max-width:520px;
+  margin-top:56px;
+  background:var(--card-bg);
+  border-radius:14px;
+  padding:28px;
+  box-shadow:0 10px 30px rgba(15,23,42,0.08);
+  z-index:1;
+}
+h1{margin:0 0 12px 0;color:var(--accent-1);font-size:1.6rem}
+form[method="post"]{display:flex;gap:10px;margin-bottom:18px}
+input[type="text"]{
+  flex:1;padding:10px 12px;border-radius:10px;border:1px solid #e6eefb;font-size:1rem;outline:none
+}
+input[type="text"]:focus{border-color:var(--accent-1);box-shadow:0 4px 16px rgba(79,140,255,0.08)}
+button{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:600}
+button:hover{transform:translateY(-2px)}
+ul{list-style:none;padding:0;margin:0}
+li{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:10px;margin-bottom:12px;background:#f8fbff;border:1px solid #eef7ff}
+li span{font-size:1rem}
+.muted{color:var(--muted);font-size:0.95rem}
+
+@media(max-width:480px){.container{padding:18px;margin-top:28px}h1{font-size:1.35rem}}
+
+/* small utilities */
+.center{text-align:center}
+
+/* end styles */
