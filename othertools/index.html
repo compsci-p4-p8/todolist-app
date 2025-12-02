@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tools Menu</title>
+
+    <style>
+        /* Navigation bar style */
+        nav {
+            background-color: #2369c5;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        /* Page layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f5f7;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 40px;
+            color: #333;
+        }
+
+        /* Cards/grid for tools */
+        .tool-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 50px;
+            width: 80%;
+            margin: auto;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .tool-card h2 {
+            margin-bottom: 10px;
+        }
+
+        .tool-card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #2369c5;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .tool-card a:hover {
+            background-color: #1b4e91;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <h2>Tools Menu</h2>
+        <div>
+            <a href="calculator.html">Go to Calculator</a>
+        </div>
+    </nav>
+
+    <h1>Select a Tool</h1>
+
+    <div class="tool-container">
+        <div class="tool-card">
+            <h2>Calculator</h2>
+            <p>A simple calculator built with math.js.</p>
+            <a href="../calculator-app/index.html">Open</a>
+        </div>
+
+        <div class="tool-card">
+            <h2>Notebook</h2>
+            <p>Write down some of your thoughts.</p>
+            <a href="../Notepad/index.html">Open</a>
+        </div>
+
+        <div class="tool-card">
+            <h2>Tool #3</h2>
+            <p>Description of another tool.</p>
+            <a href="tool3.html">Open</a>
+        </div>
+    </div>
+
+</body>
+</html>
