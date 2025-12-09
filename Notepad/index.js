@@ -32,3 +32,30 @@ downloadBtn.addEventListener("click", () => {
   a.click();
   URL.revokeObjectURL(url);
 });
+function formatText(style) {
+  let txt = document.getElementById("notepad");
+
+  let start = txt.selectionStart;
+  let end = txt.selectionEnd;
+  let selected = txt.value.substring(start, end);
+
+  let formatted;
+
+  if (style === "bold") {
+    formatted = `**${selected}**`;
+  } else if (style === "italic") {
+    formatted = `*${selected}*`;
+  } else if (style === "underline") {
+    formatted = `__${selected}__`;
+  }
+
+  txt.value = txt.value.substring(0, start) + formatted + txt.value.substring(end);
+}
+
+function changeFontSize(size) {
+  document.getElementById("notepad").style.fontSize = size;
+}
+
+function changeColor(color) {
+  document.getElementById("notepad").style.color = color;
+}

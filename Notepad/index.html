@@ -7,17 +7,40 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <body class="notepad-body"></body>
+  <a href="../othertools/index.html" class="other-tool-btn">Go to Other Tool</a>
+
   <div class="box1">
     <h1 id="title">Online Notepad</h1>
   </div>
+
   <div class="box2">
     <button id="save">Save</button>
     <button id="clear">Clear</button>
     <button id="download">Download</button>
   </div>
+
+  <div class="toolbar">
+  <button onclick="formatText('bold')"><b>B</b></button>
+  <button onclick="formatText('italic')"><i>I</i></button>
+  <button onclick="formatText('underline')"><u>U</u></button>
+
+  <select onchange="changeFontSize(this.value)">
+    <option value="16px">16px</option>
+    <option value="20px">20px</option>
+    <option value="24px">24px</option>
+    <option value="32px">32px</option>
+  </select>
+
+  <input type="color" onchange="changeColor(this.value)">
+</div>
+
+  
   <div class="box3">
-     <textarea id = "notepad" placeholder = "Start typing here"></textarea>
+
+     <textarea id="notepad" placeholder="Start typing here"></textarea>
   </div>
-  <script src = "index.js"></script>
+
+  <script src="index.js"></script>
 </body>
 </html>
