@@ -69,16 +69,29 @@
 
 #notepad {
   width: 80%;
-  height: 60vh;
+  min-height: 60vh;
   border: none;
   background: white;
   padding: 20px;
   font-size: 16px;
   outline: none;
-  resize: none;
-
   border-radius: 12px;
   box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+
+.notepad-editor {
+  width: 80%;
+  min-height: 60vh;
+  border: none;
+  background: white;
+  padding: 20px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 12px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }.toolbar {
   text-align: center;
   margin-bottom: 15px;
