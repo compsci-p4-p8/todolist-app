@@ -16,31 +16,35 @@ function renderTodos() {
 
   todos.forEach((todo, index) => {
     const li = document.createElement("li");
-    li.textContent = todo.text;
 
-    if (todo.completed) {
-      li.classList.add("completed");
-    }
-
-    // Toggle completed
-    li.addEventListener("click", () => {
+    // checkbox / toggle
+    const chk = document.createElement('button');
+    chk.className = 'check' + (todo.completed ? ' checked' : '');
+    chk.innerHTML = todo.completed ? '✓' : '';
+    chk.addEventListener('click', (e) => {
+      e.stopPropagation();
       todo.completed = !todo.completed;
       saveTodos();
       renderTodos();
     });
 
-    // Delete button
-    const delBtn = document.createElement("button");
-    delBtn.textContent = "X";
-    delBtn.className = "delete";
+    const span = document.createElement('span');
+    span.className = 'todo-text' + (todo.completed ? ' completed' : '');
+    span.textContent = todo.text;
 
-    delBtn.addEventListener("click", (e) => {
+    // Delete button (icon)
+    const delBtn = document.createElement('button');
+    delBtn.className = 'delete';
+    delBtn.innerHTML = '✕';
+    delBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       todos.splice(index, 1);
       saveTodos();
       renderTodos();
     });
 
+    li.appendChild(chk);
+    li.appendChild(span);
     li.appendChild(delBtn);
     list.appendChild(li);
   });
