@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All-in-One App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation Tabs -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <h1 class="logo">My Apps</h1>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="calculator">Calculator</button>
+        <button class="tab-btn" data-tab="notepad">Notepad</button>
+        <button class="tab-btn" data-tab="todolist">Todo List</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tab Contents -->
+  <div class="tab-content">
+    <!-- Calculator Tab -->
+    <div id="calculator" class="tab-pane active">
+      <div class="calculator-container">
+        <h2>Calculator</h2>
+        <input type="text" id="display" class="calculator-display" readonly>
+        <div class="calculator-buttons">
+          <button class="btn" onclick="appendToDisplay('7')">7</button>
+          <button class="btn" onclick="appendToDisplay('8')">8</button>
+          <button class="btn" onclick="appendToDisplay('9')">9</button>
+          <button class="btn operator" onclick="appendToDisplay('/')">÷</button>
+          
+          <button class="btn" onclick="appendToDisplay('4')">4</button>
+          <button class="btn" onclick="appendToDisplay('5')">5</button>
+          <button class="btn" onclick="appendToDisplay('6')">6</button>
+          <button class="btn operator" onclick="appendToDisplay('*')">×</button>
+          
+          <button class="btn" onclick="appendToDisplay('1')">1</button>
+          <button class="btn" onclick="appendToDisplay('2')">2</button>
+          <button class="btn" onclick="appendToDisplay('3')">3</button>
+          <button class="btn operator" onclick="appendToDisplay('-')">−</button>
+          
+          <button class="btn" onclick="appendToDisplay('0')">0</button>
+          <button class="btn" onclick="appendToDisplay('.')">.</button>
+          <button class="btn operator" onclick="appendToDisplay('+')">+</button>
+          <button class="btn equals" onclick="calculateResult()">=</button>
+          
+          <button class="btn clear-btn" onclick="clearDisplay()" style="grid-column: 1 / -1;">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notepad Tab -->
+    <div id="notepad" class="tab-pane">
+      <div class="notepad-container">
+        <h2>Notepad</h2>
+        <div class="notepad-toolbar">
+          <button onclick="formatText('bold')" title="Bold"><b>B</b></button>
+          <button onclick="formatText('italic')" title="Italic"><i>I</i></button>
+          <button onclick="formatText('underline')" title="Underline"><u>U</u></button>
+          <select id="fontSize" onchange="changeFontSize(this.value)">
+            <option value="14px">14px</option>
+            <option value="16px" selected>16px</option>
+            <option value="18px">18px</option>
+            <option value="20px">20px</option>
+            <option value="24px">24px</option>
+          </select>
+        </div>
+        <textarea id="notepadText" class="notepad-text" placeholder="Start typing..."></textarea>
+        <div class="notepad-buttons">
+          <button onclick="saveNotepad()">Save</button>
+          <button onclick="clearNotepad()">Clear</button>
+          <button onclick="downloadNotepad()">Download</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Todo List Tab -->
+    <div id="todolist" class="tab-pane">
+      <div class="todo-container">
+        <h2 class="title">Todo App</h2>
+        <p class="subtitle">Simple, fast and local</p>
+
+        <div class="input-row">
+          <input 
+            type="text" 
+            id="todoInput" 
+            placeholder="What do you want to do?"
+            aria-label="New todo"
+          >
+          <button id="addBtn" title="Add task" aria-label="Add task">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <ul id="todoList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

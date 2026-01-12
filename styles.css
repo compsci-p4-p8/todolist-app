@@ -1,0 +1,387 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  sticky: top;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tab-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: white;
+  color: #667eea;
+}
+
+/* Tab Content */
+.tab-content {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+  min-height: calc(100vh - 120px);
+}
+
+.tab-pane {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Calculator Styles */
+.calculator-container {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.calculator-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.calculator-display {
+  width: 100%;
+  padding: 15px;
+  font-size: 24px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: right;
+  background: #f9f9f9;
+}
+
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.btn {
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #f0f0f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn.operator {
+  background: #667eea;
+  color: white;
+}
+
+.btn.operator:hover {
+  background: #5568d3;
+}
+
+.btn.equals {
+  background: #48bb78;
+  color: white;
+  grid-column: 1 / -1;
+}
+
+.btn.equals:hover {
+  background: #38a169;
+}
+
+.btn.clear-btn {
+  background: #f56565;
+  color: white;
+}
+
+.btn.clear-btn:hover {
+  background: #e53e3e;
+}
+
+/* Notepad Styles */
+.notepad-container {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.notepad-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.notepad-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #eee;
+  flex-wrap: wrap;
+}
+
+.notepad-toolbar button,
+.notepad-toolbar select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.notepad-toolbar button:hover {
+  background: #f0f0f0;
+  border-color: #667eea;
+}
+
+.notepad-text {
+  width: 100%;
+  min-height: 400px;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  resize: vertical;
+  margin-bottom: 20px;
+}
+
+.notepad-text:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.notepad-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.notepad-buttons button {
+  flex: 1;
+  min-width: 100px;
+  padding: 12px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.notepad-buttons button:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Todo List Styles */
+.todo-container {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.todo-container .title {
+  color: #333;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #999;
+  margin-bottom: 25px;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+#todoInput {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+#todoInput:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+#addBtn {
+  padding: 12px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#addBtn:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#todoList {
+  list-style: none;
+}
+
+#todoList li {
+  padding: 15px;
+  background: #f9f9f9;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  border-left: 4px solid #667eea;
+}
+
+#todoList li:hover {
+  background: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#todoList li.completed {
+  opacity: 0.6;
+  border-left-color: #48bb78;
+}
+
+#todoList li.completed span {
+  text-decoration: line-through;
+}
+
+#todoList button {
+  padding: 6px 12px;
+  background: #f56565;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+#todoList button:hover {
+  background: #e53e3e;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .tabs {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .tab-content {
+    margin: 20px auto;
+  }
+
+  .calculator-buttons {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .notepad-text {
+    min-height: 300px;
+  }
+}
