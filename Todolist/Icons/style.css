@@ -51,4 +51,28 @@ li{ display:flex; align-items:center; gap:12px; padding:10px; border-radius:10px
 .delete{ background:transparent; border:none; color:var(--danger); font-weight:700; cursor:pointer; padding:6px; border-radius:6px }
 .delete:hover{ background:rgba(239,68,68,0.06) }
 
-@media (max-width:420px){ .todo-container{ padding:14px } .input-row button{ width:44px; height:44px } }
+.corner-btn{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 16px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 6px 18px rgba(79,140,255,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.corner-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(79,140,255,0.3);
+}
+
+.corner-btn:active{
+  transform: translateY(0);
+}
+
+@media (max-width:420px){ .todo-container{ padding:14px } .input-row button{ width:44px; height:44px } .corner-btn{ bottom: 16px; right: 16px; padding: 10px 14px; font-size: 0.85rem } }
