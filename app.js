@@ -23,6 +23,13 @@ tabBtns.forEach(btn => {
   });
 });
 
+function switchToTab(tabName) {
+  const btn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+  if (btn) {
+    btn.click();
+  }
+}
+
 // ==================== Calculator ====================
 let display = document.getElementById('display');
 

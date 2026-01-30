@@ -15,6 +15,7 @@
         <button class="tab-btn active" data-tab="calculator">Calculator</button>
         <button class="tab-btn" data-tab="notepad">Notepad</button>
         <button class="tab-btn" data-tab="todolist">Todo List</button>
+        <button class="tab-btn" data-tab="homepage">Homepage</button>
       </div>
     </div>
   </nav>
@@ -98,6 +99,38 @@
         </div>
 
         <ul id="todoList"></ul>
+      </div>
+    </div>
+
+    <!-- Homepage Tab -->
+    <div id="homepage" class="tab-pane">
+      <div class="homepage-container">
+        <h2>School Tasks</h2>
+
+        <div class="apps">
+          <a href="https://canvas.instructure.com" target="_blank">Canvas</a>
+          <a href="https://drive.google.com" target="_blank">Google Drive</a>
+          <a href="https://mail.google.com" target="_blank">Gmail</a>
+          <a href="https://dbqonline.com" target="_blank">DBQ Online</a>
+        </div>
+
+        <div class="tool-container">
+            <div class="tool-card">
+                <h2>Calculator</h2>
+                <p>A simple calculator for basic arithmetic operations.</p>
+                <button onclick="switchToTab('calculator')">Open Calculator</button>
+            </div>
+            <div class="tool-card">
+                <h2>Notepad</h2>
+                <p>A basic notepad to jot down your notes.</p>
+                <button onclick="switchToTab('notepad')">Open Notepad</button>
+            </div>
+            <div class="tool-card">
+                <h2>Todo List</h2>
+                <p>Manage your tasks with this simple todo list.</p>
+                <button onclick="switchToTab('todolist')">Open Todo List</button>
+            </div>
+        </div>
       </div>
     </div>
   </div>

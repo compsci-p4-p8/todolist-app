@@ -17,7 +17,6 @@ body {
   color: white;
   padding: 0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  sticky: top;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -384,4 +383,89 @@ body {
   .notepad-text {
     min-height: 300px;
   }
+}
+
+/* Homepage Styles */
+.homepage-container {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.homepage-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 28px;
+}
+
+.apps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.apps a {
+  padding: 15px;
+  background: #1e88e5;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.apps a:hover {
+  background: #1565c0;
+}
+
+.tool-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.tool-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tool-card h2 {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 20px;
+}
+
+.tool-card p {
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.tool-card button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.tool-card button:hover {
+  background: #5a67d8;
 }
