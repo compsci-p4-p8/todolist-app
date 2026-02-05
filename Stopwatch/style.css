@@ -43,7 +43,8 @@ html, body{
     justify-content: center;
     margin: 0 auto;
     font-size: 300%;
-    margin-top: 3%
+    margin-top: 3%;
+    font-weight:100;
 }
 #time{
     color:white;
@@ -52,6 +53,13 @@ html, body{
     justify-content: center;
     margin: 0 auto;
     font-size: 300%;
-    margin-top: 1.5%;
-    
+    margin-top: 1.5%;    
+}
+#stopwatch{
+    height:400px;
+    position:relative;
+    left:750px;
+    bottom:525px;
+   
+
 }
