@@ -23,13 +23,6 @@ tabBtns.forEach(btn => {
   });
 });
 
-function switchToTab(tabName) {
-  const btn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
-  if (btn) {
-    btn.click();
-  }
-}
-
 // ==================== Calculator ====================
 let display = document.getElementById('display');
 
@@ -158,6 +151,9 @@ function addTodo() {
   renderTodos();
   todoInput.value = '';
   todoInput.focus();
+  
+  // Show image popup
+  showImagePopup();
 }
 
 function deleteTodo(id) {
@@ -203,3 +199,27 @@ todoInput.addEventListener('keypress', (e) => {
 
 // Load todos on page load
 loadTodolist();
+
+// Modal functionality
+const modal = document.getElementById('imageModal');
+const closeBtn = document.getElementsByClassName('close')[0];
+
+function showImagePopup() {
+  modal.style.display = 'flex';
+  const img = document.getElementById('popupImage');
+  setTimeout(() => {
+    img.style.opacity = '1';
+  }, 100); // Small delay to ensure modal is displayed
+}
+
+closeBtn.onclick = function() {
+  modal.style.display = 'none';
+  document.getElementById('popupImage').style.opacity = '0';
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+    document.getElementById('popupImage').style.opacity = '0';
+  }
+}

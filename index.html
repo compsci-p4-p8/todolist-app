@@ -10,12 +10,14 @@
   <!-- Navigation Tabs -->
   <nav class="navbar">
     <div class="nav-container">
-      <h1 class="logo">My Apps</h1>
+      <h1 class="logo">TuDo Tech</h1>
       <div class="tabs">
         <button class="tab-btn active" data-tab="calculator">Calculator</button>
         <button class="tab-btn" data-tab="notepad">Notepad</button>
-        <button class="tab-btn" data-tab="todolist">Todo List</button>
+        <button class="tab-btn" data-tab="todolist">To do List</button>
         <button class="tab-btn" data-tab="homepage">Homepage</button>
+        <button class="tab-btn">Login</button>
+        <button class="tab-btn">ABG</button>
       </div>
     </div>
   </nav>
@@ -78,10 +80,10 @@
       </div>
     </div>
 
-    <!-- Todo List Tab -->
+    <!-- To Do List Tab -->
     <div id="todolist" class="tab-pane">
       <div class="todo-container">
-        <h2 class="title">Todo App</h2>
+        <h2 class="title">To Do App</h2>
         <p class="subtitle">Simple, fast and local</p>
 
         <div class="input-row">
@@ -99,6 +101,14 @@
         </div>
 
         <ul id="todoList"></ul>
+
+        <!-- Image Popup Modal -->
+        <div id="imageModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="popupImage" src="https://hips.hearstapps.com/hmg-prod/images/gymnast-suni-lee-poses-for-a-portrait-during-the-2024-team-news-photo-1721146041.jpg?crop=1.00xw:0.668xh;0,0.0681xh&resize=640:*" alt="Task Added" style="width:100%; height:auto; opacity:0; transition: opacity 0.5s ease;">
+          </div>
+        </div>
       </div>
     </div>
 
@@ -126,9 +136,9 @@
                 <button onclick="switchToTab('notepad')">Open Notepad</button>
             </div>
             <div class="tool-card">
-                <h2>Todo List</h2>
+                <h2>To do List</h2>
                 <p>Manage your tasks with this simple todo list.</p>
-                <button onclick="switchToTab('todolist')">Open Todo List</button>
+                <button onclick="switchToTab('todolist')">Open To do List</button>
             </div>
         </div>
       </div>
