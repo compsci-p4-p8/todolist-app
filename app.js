@@ -23,6 +23,11 @@ tabBtns.forEach(btn => {
   });
 });
 
+// ABG Button functionality
+document.getElementById('abgBtn').addEventListener('click', () => {
+  showImagePopup();
+});
+
 // ==================== Calculator ====================
 let display = document.getElementById('display');
 
