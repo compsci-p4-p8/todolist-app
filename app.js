@@ -1,6 +1,5 @@
 // ==================== Tab Navigation ====================
 const tabBtns = document.querySelectorAll('.tab-btn');
-const tabPanes = document.querySelectorAll('.tab-pane');
 
 tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -8,11 +7,20 @@ tabBtns.forEach(btn => {
     
     // Remove active class from all buttons and panes
     tabBtns.forEach(b => b.classList.remove('active'));
-    tabPanes.forEach(pane => pane.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
     
     // Add active class to clicked button and corresponding pane
     btn.classList.add('active');
-    document.getElementById(tabName).classList.add('active');
+    
+    // If the Stopwatch tab is requested, ensure its pane and assets exist first
+    if (tabName === 'Stopwatch') {
+      loadStopwatch();
+    }
+    
+    const targetPane = document.getElementById(tabName);
+    if (targetPane) {
+      targetPane.classList.add('active');
+    }
     
     // Load data when switching tabs
     if (tabName === 'notepad') {
@@ -226,5 +234,44 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = 'none';
     document.getElementById('popupImage').style.opacity = '0';
+  }
+}
+
+// ========= Stopwatch Dynamic Loader =========
+function loadStopwatch() {
+  // Create pane if it doesn't exist
+  if (!document.getElementById('Stopwatch')) {
+    const pane = document.createElement('div');
+    pane.id = 'Stopwatch';
+    pane.className = 'tab-pane';
+    pane.innerHTML = `
+      <div class="stopwatch-container">
+        <h1 id="title">Stopwatch</h1>
+        <h1 id="time">00:00:00</h1>
+        <div class="buttons">
+          <button id="start">Start</button>
+          <button id="stop">Stop</button>
+          <button id="reset">Reset</button>
+        </div>
+        
+      </div>
+    `;
+    const tabContent = document.querySelector('.tab-content');
+    if (tabContent) tabContent.appendChild(pane);
+
+    // Load stylesheet if not already loaded
+    if (!document.querySelector('link[href="Stopwatch/style.css"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'Stopwatch/style.css';
+      document.head.appendChild(link);
+    }
+
+    // Load script if not already loaded
+    if (!document.querySelector('script[src="Stopwatch/index.js"]')) {
+      const script = document.createElement('script');
+      script.src = 'Stopwatch/index.js';
+      document.body.appendChild(script);
+    }
   }
 }
