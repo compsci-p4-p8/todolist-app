@@ -8,7 +8,7 @@ How it works
 
 Quick test
 1. Open [minigame-unlock/index.html](minigame-unlock/index.html) in your browser (or click the "Mini-game" card on the app's homepage).
-2. Use the "Simulate completed tasks" input to enter `5` and click "Check Unlock".
+2. The parent app will automatically send the current completed‑task count when the window opens and whenever it changes; there is no need to enter a number manually.
 
 Integrating into your app
 - Option A — Open as standalone window: when tasks reach 5, call `window.open('minigame-unlock/index.html')`.

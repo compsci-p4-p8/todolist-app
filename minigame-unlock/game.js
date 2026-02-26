@@ -82,9 +82,14 @@
   function _applyUnlock(count) {
     const required = 5;
     const msg = document.getElementById('unlock-msg');
+    const countEl = document.getElementById('completed-count');
     if (!msg) return; // can't update yet
 
     const num = Number(count) || 0;
+    if (countEl) {
+      countEl.textContent = `Completed tasks: ${num}`;
+    }
+
     if (num >= required) {
       msg.textContent = 'Unlocked! Have fun.';
       startGame();

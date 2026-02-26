@@ -173,6 +173,7 @@ function deleteTodo(id) {
   todos = todos.filter(todo => todo.id !== id);
   saveTodos();
   renderTodos();
+  updateMiniGameUnlock(); // refresh unlock state when tasks are removed
 }
 
 function toggleTodo(id) {
@@ -222,7 +223,7 @@ let miniGameWindow = null;
 function openMiniGame() {
   const completedCount = todos.filter(t => t.completed).length;
   miniGameWindow = window.open('minigame-unlock/index.html', '_blank');
-  // try to send unlock after the new window loads
+  // send count once the new window has loaded
   if (miniGameWindow) {
     miniGameWindow.addEventListener('load', () => {
       if (typeof miniGameWindow.checkUnlock === 'function') {
