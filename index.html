@@ -17,7 +17,7 @@
         <button class="tab-btn" data-tab="todolist">To do List</button>
         <button class="tab-btn" data-tab="homepage">Homepage</button>
         <button class="tab-btn" data-tab="Stopwatch">Stopwatch</button>
-        <button class="tab-btn">Login</button>
+        <button class="tab-btn" data-tab="login">Login</button>
         <button class="tab-btn" id="abgBtn">ABG</button>
       </div>
     </div>
@@ -138,7 +138,25 @@
                 <p>A simple stopwatch to time your activities.</p>
                 <button onclick="switchToTab('Stopwatch')">Open Stopwatch</button>
             </div>
+            <div class="tool-card">
+                <h2>Login</h2>
+                <p>Access your personalized dashboard by logging in.</p>
+                <button onclick="switchToTab('login')">Go to Login</button>
+            </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Login Tab -->
+    <div id="login" class="tab-pane">
+      <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+          <input type="text" id="username" placeholder="Username" required>
+          <input type="password" id="password" placeholder="Password" required>
+          <button type="submit">Login</button>
+          <p id="message"></p>
+        </form>
       </div>
     </div>
   </div>

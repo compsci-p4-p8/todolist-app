@@ -31,6 +31,14 @@ tabBtns.forEach(btn => {
   });
 });
 
+// Function to switch tabs programmatically (used by tool cards)
+function switchToTab(tabName) {
+  const btn = document.querySelector(`[data-tab="${tabName}"]`);
+  if (btn) {
+    btn.click();
+  }
+}
+
 // ABG Button functionality
 document.getElementById('abgBtn').addEventListener('click', () => {
   showImagePopup();
@@ -165,8 +173,7 @@ function addTodo() {
   todoInput.value = '';
   todoInput.focus();
   
-  // Show image popup
-  showImagePopup();
+ 
 }
 
 function deleteTodo(id) {
@@ -216,6 +223,25 @@ loadTodolist();
 // Modal functionality
 const modal = document.getElementById('imageModal');
 const closeBtn = document.getElementsByClassName('close')[0];
+
+// Login functionality
+function loginUser() {
+  const user = document.getElementById('username').value;
+  const pass = document.getElementById('password').value;
+  // This is just a placeholder; real authentication would require a server.
+  if (user.trim() === '') {
+    alert('Please enter a username');
+    return;
+  }
+  alert(`You typed username: ${user}`);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loginBtn = document.getElementById('loginBtn');
+  if (loginBtn) {
+    loginBtn.addEventListener('click', loginUser);
+  }
+});
 
 function showImagePopup() {
   modal.style.display = 'flex';
@@ -274,4 +300,33 @@ function loadStopwatch() {
       document.body.appendChild(script);
     }
   }
+}
+
+// ==================== Login ====================
+// Fake stored user (for demo only)
+const correctUsername = "admin";
+const correctPassword = "Luvbensontech";
+
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", function(e) {
+      e.preventDefault(); // stop page reload
+      
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message");
+
+      if (username === correctUsername && password === correctPassword) {
+          message.style.color = "green";
+          message.textContent = "Login successful!";
+          
+          // Redirect after login
+          setTimeout(() => {
+              window.location.href = "http://127.0.0.1:5501";
+          }, 1000);
+      } else {
+          message.style.color = "red";
+          message.textContent = "Invalid username or password.";
+      }
+  });
 }
