@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-game Unlock — Memory Match</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Memory Match (Unlockable)</h1>
+    <p class="instructions">Click cards to reveal the emoji and find all the matching pairs!</p>
+    <p id="hint">The parent window will automatically send the number of completed tasks when you open the game or when it changes.</p>
+
+    <!-- display the count received from the parent application -->
+    <p id="completed-count"></p>
+    <p><span id="unlock-msg"></span></p>
+
+    <section id="game-container" class="hidden">
+      <div class="game-header">
+        <button id="resetBtn">New Game</button>
+        <div id="status">Matches: <span id="matches">0</span></div>
+      </div>
+      <div id="board" class="board"></div>
+      <div id="win" class="hidden">You win! 🎉 <button id="playAgain">Play again</button></div>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+  <!-- no manual controls anymore; checkUnlock is called by the opener -->
+</body>
+</html>

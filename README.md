@@ -1,30 +1,38 @@
 # Todo List App
 
-This is a todo list application with user authentication. Tasks are saved per user and are only accessible when logged in.
+This repository contains a **static front‑end** for a to‑do list collection of mini‑tools. There is no backend server required; all data is saved in the browser's `localStorage`.
 
-## Features
+## What’s Included
 
-- User registration and login
-- Add, toggle, and delete todos
-- Tasks are stored in a database per user
-- When logged out, tasks are not accessible
+- Calculator, notepad, stopwatch, and to‑do list UI
+- Mini‑game that unlocks after completing tasks
+- Fully client‑side JavaScript; no database or server code is used
 
-## Setup
+## Running the App
 
-1. Install dependencies:
-   ```
-   pip install -e .
-   ```
+You have two simple options:
 
-2. Run the app:
-   ```
-   python app.py
-   ```
+1. **Open the HTML file directly**
+   - Double‑click `index.html` or drag it into a browser window.
+   - This uses the `file://` protocol and works immediately.
+   - *Note*: some browsers enforce stricter security for `file://` (e.g. cross‑window messaging), so features like the mini‑game may require the next option.
 
-3. Open your browser to `http://127.0.0.1:5000/`
+2. **Serve it over HTTP (recommended)**
+   - From a terminal in the project root run one of the following commands:
+     ```powershell
+     # Python 3 (any platform)
+     python -m http.server 8000
+     # or using Node if installed
+     npx http-server -p 8000
+     ```
+   - Then open your browser to `http://localhost:8000`.
+   - This mimics a real web host and avoids any `file://` restrictions.
 
-4. Register a new account or login.
+> 🔧 You do **not** need to run `python app.py` or install any dependencies; the Python script currently just prints a greeting and is unrelated to the UI.
 
-## Static Version
+## Tips
 
-The static version without login is in `index.html` and uses localStorage.
+- The mini‑game opens in a new window/tab and automatically receives the count of completed tasks.
+- All state (todos, notepad text) is stored locally and persists between reloads.
+
+Feel free to copy the `minigame-unlock/` folder for use in other projects.
