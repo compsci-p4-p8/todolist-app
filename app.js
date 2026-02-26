@@ -181,6 +181,7 @@ function toggleTodo(id) {
     todo.completed = !todo.completed;
     saveTodos();
     renderTodos();
+    updateMiniGameUnlock();
   }
 }
 
@@ -212,6 +213,31 @@ todoInput.addEventListener('keypress', (e) => {
 
 // Load todos on page load
 loadTodolist();
+// and update any open mini-game with the initial count
+updateMiniGameUnlock();
+
+// Mini-game integration
+let miniGameWindow = null;
+
+function openMiniGame() {
+  const completedCount = todos.filter(t => t.completed).length;
+  miniGameWindow = window.open('minigame-unlock/index.html', '_blank');
+  // try to send unlock after the new window loads
+  if (miniGameWindow) {
+    miniGameWindow.addEventListener('load', () => {
+      if (typeof miniGameWindow.checkUnlock === 'function') {
+        miniGameWindow.checkUnlock(completedCount);
+      }
+    });
+  }
+}
+
+function updateMiniGameUnlock() {
+  const count = todos.filter(t => t.completed).length;
+  if (miniGameWindow && typeof miniGameWindow.checkUnlock === 'function') {
+    miniGameWindow.checkUnlock(count);
+  }
+}
 
 // Modal functionality
 const modal = document.getElementById('imageModal');

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-game Unlock — Memory Match</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Memory Match (Unlockable)</h1>
+    <p id="hint">Call <code>checkUnlock(count)</code> from your app (count = completed tasks).</p>
+
+    <div class="controller">
+      <label>Simulate completed tasks: <input id="completed" type="number" min="0" value="0"></label>
+      <button id="checkBtn">Check Unlock</button>
+      <span id="unlock-msg"></span>
+    </div>
+
+    <section id="game-container" class="hidden">
+      <div class="game-header">
+        <button id="resetBtn">New Game</button>
+        <div id="status">Matches: <span id="matches">0</span></div>
+      </div>
+      <div id="board" class="board"></div>
+      <div id="win" class="hidden">You win! 🎉 <button id="playAgain">Play again</button></div>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+  <script>
+    document.getElementById('checkBtn').addEventListener('click', () => {
+      const n = Number(document.getElementById('completed').value || 0);
+      checkUnlock(n);
+    });
+  </script>
+</body>
+</html>
