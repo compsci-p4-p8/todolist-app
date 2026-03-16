@@ -4,6 +4,7 @@ const tabBtns = document.querySelectorAll('.tab-btn');
 tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const tabName = btn.getAttribute('data-tab');
+    if (!tabName) return;
     
     // Remove active class from all buttons and panes
     tabBtns.forEach(b => b.classList.remove('active'));
@@ -27,6 +28,26 @@ tabBtns.forEach(btn => {
       loadNotepad();
     } else if (tabName === 'todolist') {
       loadTodolist();
+    } else if (tabName === 'homepage') {
+      loadCustomLinks();
+    }
+
+    // fade in ABG image if switching to that tab
+    if (tabName === 'abg') {
+      const abgImg = document.getElementById('abgImage');
+      if (abgImg) {
+        // ensure it starts at 0 before toggling
+        abgImg.style.opacity = '0';
+        // add error handler
+        abgImg.onerror = () => {
+          console.error('ABG image failed to load');
+          abgImg.style.display = 'none';
+          const errorMsg = document.createElement('p');
+          errorMsg.textContent = 'Image could not be loaded.';
+          abgImg.parentNode.appendChild(errorMsg);
+        };
+        requestAnimationFrame(() => { abgImg.style.opacity = '1'; });
+      }
     }
   });
 });
@@ -38,11 +59,6 @@ function switchToTab(tabName) {
     btn.click();
   }
 }
-
-// ABG Button functionality
-document.getElementById('abgBtn').addEventListener('click', () => {
-  showImagePopup();
-});
 
 // ==================== Calculator ====================
 let display = document.getElementById('display');
@@ -70,6 +86,31 @@ function calculateResult() {
 
 // Initialize display
 clearDisplay();
+
+// toggle between calculator and graphing view
+function toggleGraph() {
+  const calcContainer = document.querySelector('.calculator-container');
+  const graph = document.getElementById('graph-container');
+  const btn = document.getElementById('toggleGraphBtn');
+  if (!calcContainer || !graph || !btn) return;
+  if (graph.style.display === 'none') {
+    calcContainer.style.display = 'none';
+    graph.style.display = 'block';
+    btn.textContent = 'Calculator';
+  } else {
+    calcContainer.style.display = '';
+    graph.style.display = 'none';
+    btn.textContent = 'Graphing';
+  }
+}
+
+// attach event listener when page loads
+window.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('toggleGraphBtn');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', toggleGraph);
+  }
+});
 
 // ==================== Notepad ====================
 const notepadText = document.getElementById('notepadText');
@@ -247,50 +288,9 @@ function updateMiniGameUnlock() {
   }
 }
 
-// Modal functionality
-const modal = document.getElementById('imageModal');
-const closeBtn = document.getElementsByClassName('close')[0];
+// Modal functionality for ABG will be initialised later
 
-// Login functionality
-function loginUser() {
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
-  // This is just a placeholder; real authentication would require a server.
-  if (user.trim() === '') {
-    alert('Please enter a username');
-    return;
-  }
-  alert(`You typed username: ${user}`);
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-  const loginBtn = document.getElementById('loginBtn');
-  if (loginBtn) {
-    loginBtn.addEventListener('click', loginUser);
-  }
-});
-
-function showImagePopup() {
-  modal.style.display = 'flex';
-  const img = document.getElementById('popupImage');
-  setTimeout(() => {
-    img.style.opacity = '1';
-  }, 100); // Small delay to ensure modal is displayed
-}
-
-closeBtn.onclick = function() {
-  modal.style.display = 'none';
-  document.getElementById('popupImage').style.opacity = '0';
-}
-
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = 'none';
-    document.getElementById('popupImage').style.opacity = '0';
-  }
-}
-
-// ========= Stopwatch Dynamic Loader =========
 function loadStopwatch() {
   // Create pane if it doesn't exist
   if (!document.getElementById('Stopwatch')) {
@@ -329,31 +329,87 @@ function loadStopwatch() {
   }
 }
 
-// ==================== Login ====================
-// Fake stored user (for demo only)
-const correctUsername = "admin";
-const correctPassword = "Luvbensontech";
+// ==================== Custom Links ====================
+function loadCustomLinks() {
+  const appsDiv = document.querySelector('.apps');
+  if (!appsDiv) return;
 
-const loginForm = document.getElementById("loginForm");
-if (loginForm) {
-  loginForm.addEventListener("submit", function(e) {
-      e.preventDefault(); // stop page reload
-      
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      const message = document.getElementById("message");
+  // Clear existing custom links (keep the hardcoded ones)
+  const existingCustom = appsDiv.querySelectorAll('.custom-link');
+  existingCustom.forEach(link => link.remove());
 
-      if (username === correctUsername && password === correctPassword) {
-          message.style.color = "green";
-          message.textContent = "Login successful!";
-          
-          // Redirect after login
-          setTimeout(() => {
-              window.location.href = "http://127.0.0.1:5501";
-          }, 1000);
-      } else {
-          message.style.color = "red";
-          message.textContent = "Invalid username or password.";
-      }
+  // Load from localStorage
+  const customLinks = JSON.parse(localStorage.getItem('customLinks') || '[]');
+  customLinks.forEach(link => {
+    const a = document.createElement('a');
+    a.href = link.url;
+    a.target = '_blank';
+    a.textContent = link.name;
+    a.className = 'custom-link';
+    appsDiv.appendChild(a);
   });
 }
+
+function addCustomLink() {
+  const form = document.getElementById('addLinkForm');
+  form.style.display = 'block';
+  document.getElementById('addLinkBtn').style.display = 'none';
+}
+
+function saveCustomLink() {
+  const name = document.getElementById('linkName').value.trim();
+  const url = document.getElementById('linkUrl').value.trim();
+
+  if (!name || !url) {
+    alert('Please enter both name and URL.');
+    return;
+  }
+
+  // Ensure URL has protocol
+  let fullUrl = url;
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    fullUrl = 'https://' + url;
+  }
+
+  const customLinks = JSON.parse(localStorage.getItem('customLinks') || '[]');
+  customLinks.push({ name, url: fullUrl });
+  localStorage.setItem('customLinks', JSON.stringify(customLinks));
+
+  // Clear form
+  document.getElementById('linkName').value = '';
+  document.getElementById('linkUrl').value = '';
+
+  // Hide form
+  document.getElementById('addLinkForm').style.display = 'none';
+  document.getElementById('addLinkBtn').style.display = 'inline-block';
+
+  loadCustomLinks();
+}
+
+function cancelAddLink() {
+  // Clear form
+  document.getElementById('linkName').value = '';
+  document.getElementById('linkUrl').value = '';
+
+  // Hide form
+  document.getElementById('addLinkForm').style.display = 'none';
+  document.getElementById('addLinkBtn').style.display = 'inline-block';
+}
+
+// Add event listener for add link button
+document.addEventListener('DOMContentLoaded', () => {
+  const addLinkBtn = document.getElementById('addLinkBtn');
+  if (addLinkBtn) {
+    addLinkBtn.addEventListener('click', addCustomLink);
+  }
+
+  const saveLinkBtn = document.getElementById('saveLinkBtn');
+  if (saveLinkBtn) {
+    saveLinkBtn.addEventListener('click', saveCustomLink);
+  }
+
+  const cancelLinkBtn = document.getElementById('cancelLinkBtn');
+  if (cancelLinkBtn) {
+    cancelLinkBtn.addEventListener('click', cancelAddLink);
+  }
+});

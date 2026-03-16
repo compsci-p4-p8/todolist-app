@@ -17,8 +17,7 @@
         <button class="tab-btn" data-tab="todolist">To do List</button>
         <button class="tab-btn" data-tab="homepage">Homepage</button>
         <button class="tab-btn" data-tab="Stopwatch">Stopwatch</button>
-        <button class="tab-btn" data-tab="login">Login</button>
-        <button class="tab-btn" id="abgBtn">ABG</button>
+        <button class="tab-btn" data-tab="abg">ABG</button>
       </div>
     </div>
   </nav>
@@ -52,6 +51,13 @@
           <button class="btn equals" onclick="calculateResult()">=</button>
           
           <button class="btn clear-btn" onclick="clearDisplay()" style="grid-column: 1 / -1;">Clear</button>
+        </div>
+      </div>
+      <!-- toggle between calculator and graph -->
+       <button id="toggleGraphBtn">Graphing</button>
+      <div id="graph-container" style="display:none; text-align:center; margin-top:20px;">
+        <div style="border-radius: 10px; overflow: hidden; margin:0 auto; width:1000px;">
+          <iframe src="https://www.desmos.com/calculator" style="border:0px #ffffff none; width: 1000px;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="700px" allowfullscreen></iframe>
         </div>
       </div>
     </div>
@@ -116,6 +122,13 @@
           <a href="https://mail.google.com" target="_blank">Gmail</a>
           <a href="https://docs.google.com/document/u/0/?tgif=c" target="_blank">Google Docs</a>
         </div>
+        <div id="addLinkForm" style="display: none; margin-top: 10px;">
+          <input type="text" id="linkName" placeholder="Link Name" style="padding: 5px; margin-right: 5px;">
+          <input type="text" id="linkUrl" placeholder="URL" style="padding: 5px; margin-right: 5px;">
+          <button id="saveLinkBtn" style="padding: 5px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer;">Add</button>
+          <button id="cancelLinkBtn" style="padding: 5px; background: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer;">Cancel</button>
+        </div>
+        <button id="addLinkBtn" style="margin-top: 10px; padding: 10px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">+ Add Link</button>
 
         <div class="tool-container">
             <div class="tool-card">
@@ -142,25 +155,12 @@
       </div>
     </div>
 
-    <!-- Login Tab -->
-    <div id="login" class="tab-pane">
-      <div class="login-container">
-        <h2>Login</h2>
-        <form id="loginForm">
-          <input type="text" id="username" placeholder="Username" required>
-          <input type="password" id="password" placeholder="Password" required>
-          <button type="submit">Login</button>
-          <p id="message"></p>
-        </form>
+    <!-- ABG Tab -->
+    <div id="abg" class="tab-pane">
+      <div class="abg-container" style="text-align:center; padding:20px;">
+        <h2>ABG Image</h2>
+        <img id="abgImage" src="https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2025/11/1200/675/suni-lee-112025.jpg?ve=1&tl=1" alt="ABG" style="max-width:100%; opacity:0; transition: opacity 0.5s ease;">
       </div>
-    </div>
-  </div>
-
-  <!-- Image Popup Modal -->
-  <div id="imageModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <img id="popupImage" src="https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2025/11/1200/675/suni-lee-112025.jpg?ve=1&tl=1 *" alt="Task Added" style="width:100%; height:auto; opacity:0; transition: opacity 0.5s ease;">
     </div>
   </div>
 
