@@ -178,9 +178,16 @@ setInterval(() => {
 const todoInput = document.getElementById('todoInput');
 const addBtn = document.getElementById('addBtn');
 const todoList = document.getElementById('todoList');
+const editTodoDialog = document.getElementById('editTodoDialog');
+const editTodoForm = document.getElementById('editTodoForm');
+const editTodoText = document.getElementById('editTodoText');
+const editTodoDue = document.getElementById('editTodoDue');
+const editTodoNotes = document.getElementById('editTodoNotes');
+const cancelTodoBtn = document.getElementById('cancelTodoBtn');
 const TODO_STORAGE_KEY = 'todos';
 
 let todos = [];
+let editingTodoId = null;
 
 function loadTodolist() {
   const saved = localStorage.getItem(TODO_STORAGE_KEY);
@@ -205,7 +212,9 @@ function addTodo() {
   const todo = {
     id: Date.now(),
     text: text,
-    completed: false
+    completed: false,
+    dueDate: '',
+    notes: ''
   };
   
   todos.push(todo);
@@ -213,8 +222,57 @@ function addTodo() {
   renderTodos();
   todoInput.value = '';
   todoInput.focus();
-  
- 
+}
+
+function openEditDialog(id) {
+  const todo = todos.find(t => t.id === id);
+  if (!todo) return;
+
+  editingTodoId = id;
+  editTodoText.value = todo.text;
+  editTodoDue.value = todo.dueDate || '';
+  editTodoNotes.value = todo.notes || '';
+
+  if (editTodoDialog) {
+    if (typeof editTodoDialog.showModal === 'function') {
+      editTodoDialog.showModal();
+    } else {
+      // Fallback for browsers that don't support <dialog>
+      editTodoDialog.setAttribute('open', '');
+    }
+  }
+}
+
+function closeEditDialog() {
+  editingTodoId = null;
+  if (editTodoDialog) {
+    if (typeof editTodoDialog.close === 'function') {
+      editTodoDialog.close();
+    } else {
+      editTodoDialog.removeAttribute('open');
+    }
+  }
+}
+
+function saveEditedTodo() {
+  if (editingTodoId === null) return;
+
+  const todo = todos.find(t => t.id === editingTodoId);
+  if (!todo) return;
+
+  const newText = editTodoText.value.trim();
+  if (!newText) {
+    alert('Task text cannot be empty.');
+    return;
+  }
+
+  todo.text = newText;
+  todo.dueDate = editTodoDue.value;
+  todo.notes = editTodoNotes.value;
+
+  saveTodos();
+  renderTodos();
+  closeEditDialog();
 }
 
 function deleteTodo(id) {
@@ -242,12 +300,23 @@ function renderTodos() {
     if (todo.completed) {
       li.classList.add('completed');
     }
-    
+
+    const dueText = todo.dueDate ? `<span class="todo-due">Due: ${todo.dueDate}</span>` : '';
+    const notesText = todo.notes ? `<div class="todo-notes">${todo.notes}</div>` : '';
+
     li.innerHTML = `
-      <span onclick="toggleTodo(${todo.id})" style="cursor: pointer; flex: 1;">${todo.text}</span>
-      <button onclick="deleteTodo(${todo.id})">Delete</button>
+      <div class="todo-main" onclick="openEditDialog(${todo.id})">
+        <span class="todo-text">${todo.text}</span>
+        ${dueText}
+      </div>
+      ${notesText}
+      <div class="todo-actions">
+        <button class="complete-btn" onclick="toggleTodo(${todo.id})">${todo.completed ? 'Undo' : 'Done'}</button>
+        <button class="edit-btn" onclick="openEditDialog(${todo.id})">Edit</button>
+        <button class="delete-btn" onclick="deleteTodo(${todo.id})">Delete</button>
+      </div>
     `;
-    
+
     todoList.appendChild(li);
   });
 }
@@ -259,6 +328,25 @@ todoInput.addEventListener('keypress', (e) => {
     addTodo();
   }
 });
+
+if (editTodoForm) {
+  editTodoForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    saveEditedTodo();
+  });
+}
+
+if (cancelTodoBtn) {
+  cancelTodoBtn.addEventListener('click', closeEditDialog);
+}
+
+if (editTodoDialog) {
+  // Close dialog on Esc key or when user clicks outside in browsers that support it
+  editTodoDialog.addEventListener('cancel', (e) => {
+    e.preventDefault();
+    closeEditDialog();
+  });
+}
 
 // Load todos on page load
 loadTodolist();

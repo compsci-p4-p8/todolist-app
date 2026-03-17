@@ -108,6 +108,29 @@
         </div>
 
         <ul id="todoList"></ul>
+
+        <!-- Edit task modal -->
+        <dialog id="editTodoDialog" class="todo-edit-dialog">
+          <form method="dialog" id="editTodoForm">
+            <h3>Edit task</h3>
+            <div class="field">
+              <label for="editTodoText">Task</label>
+              <input id="editTodoText" type="text" required>
+            </div>
+            <div class="field">
+              <label for="editTodoDue">Due date</label>
+              <input id="editTodoDue" type="date">
+            </div>
+            <div class="field">
+              <label for="editTodoNotes">Notes</label>
+              <textarea id="editTodoNotes" rows="3" placeholder="Extra details..."></textarea>
+            </div>
+            <menu class="dialog-actions">
+              <button id="saveTodoBtn" type="submit">Save</button>
+              <button id="cancelTodoBtn" type="button">Cancel</button>
+            </menu>
+          </form>
+        </dialog>
       </div>
     </div>
 

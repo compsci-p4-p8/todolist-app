@@ -514,6 +514,113 @@ body {
   transform: scale(1.05);
 }
 
+/* Todo item details */
+.todo-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.todo-text {
+  flex: 1;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.todo-due {
+  font-size: 12px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.todo-notes {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #444;
+  line-height: 1.4;
+  padding-left: 4px;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.todo-actions button {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.todo-actions .edit-btn {
+  background: #667eea;
+}
+
+.todo-actions .edit-btn:hover {
+  background: #5568d3;
+}
+
+.todo-actions .complete-btn {
+  background: #48bb78;
+}
+
+.todo-actions .complete-btn:hover {
+  background: #38a169;
+}
+
+.todo-edit-dialog {
+  border: none;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 420px;
+  width: 90vw;
+}
+
+.todo-edit-dialog form {
+  display: grid;
+  gap: 12px;
+}
+
+.todo-edit-dialog .field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.todo-edit-dialog input,
+.todo-edit-dialog textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.todo-edit-dialog .dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 0;
+  border: none;
+}
+
+.todo-edit-dialog button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.todo-edit-dialog button[type="submit"] {
+  background: #667eea;
+  color: white;
+}
+
+.todo-edit-dialog button[type="button"] {
+  background: #e2e8f0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav-container {
