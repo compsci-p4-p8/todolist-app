@@ -89,12 +89,12 @@ body {
 }
 
 .tab-pane {
-  display: none;
+  display: none !important;
   animation: fadeIn 0.3s ease-in-out;
 }
 
 .tab-pane.active {
-  display: block;
+  display: block !important;
 }
 
 @keyframes fadeIn {
@@ -647,12 +647,17 @@ body {
 }
 
 /* Homepage Styles */
+#homepage.active .homepage-container {
+  display: block !important;
+  visibility: visible !important;
+}
+
 .homepage-container {
   background: white;
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -683,6 +688,45 @@ body {
 
 .apps a:hover {
   background: #1565c0;
+}
+
+.custom-link-wrapper {
+  position: relative;
+}
+
+.custom-link {
+  display: block;
+  padding: 15px;
+  background: #43a047;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.custom-link:hover {
+  background: #2e7d32;
+}
+
+.remove-link-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.remove-link-btn:hover {
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .tool-container {

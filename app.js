@@ -1,28 +1,33 @@
 // ==================== Tab Navigation ====================
 const tabBtns = document.querySelectorAll('.tab-btn');
+const SAVED_LINKS_KEY = 'savedLinks';
 
 tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const tabName = btn.getAttribute('data-tab');
     if (!tabName) return;
-    
+
+    console.log('Switching to tab:', tabName);
     // Remove active class from all buttons and panes
     tabBtns.forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-    
+
     // Add active class to clicked button and corresponding pane
     btn.classList.add('active');
-    
+
     // If the Stopwatch tab is requested, ensure its pane and assets exist first
     if (tabName === 'Stopwatch') {
       loadStopwatch();
     }
-    
+
     const targetPane = document.getElementById(tabName);
     if (targetPane) {
       targetPane.classList.add('active');
+      console.log('Activated pane:', tabName, 'Display:', window.getComputedStyle(targetPane).display);
+    } else {
+      console.error('Pane not found:', tabName);
     }
-    
+
     // Load data when switching tabs
     if (tabName === 'notepad') {
       loadNotepad();
@@ -30,6 +35,7 @@ tabBtns.forEach(btn => {
       loadTodolist();
     } else if (tabName === 'homepage') {
       loadCustomLinks();
+      initHomepageLinks();
     }
 
     // fade in ABG image if switching to that tab
@@ -202,13 +208,15 @@ function saveTodos() {
 }
 
 function addTodo() {
+  if (!todoInput) return;
+
   const text = todoInput.value.trim();
-  
+
   if (text === '') {
     alert('Please enter a task');
     return;
   }
-  
+
   const todo = {
     id: Date.now(),
     text: text,
@@ -216,7 +224,7 @@ function addTodo() {
     dueDate: '',
     notes: ''
   };
-  
+
   todos.push(todo);
   saveTodos();
   renderTodos();
@@ -293,8 +301,9 @@ function toggleTodo(id) {
 }
 
 function renderTodos() {
+  if (!todoList) return;
   todoList.innerHTML = '';
-  
+
   todos.forEach(todo => {
     const li = document.createElement('li');
     if (todo.completed) {
@@ -322,12 +331,17 @@ function renderTodos() {
 }
 
 // Add todo event listeners
-addBtn.addEventListener('click', addTodo);
-todoInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    addTodo();
-  }
-});
+if (addBtn) {
+  addBtn.addEventListener('click', addTodo);
+}
+
+if (todoInput) {
+  todoInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      addTodo();
+    }
+  });
+}
 
 if (editTodoForm) {
   editTodoForm.addEventListener('submit', (e) => {
@@ -348,8 +362,10 @@ if (editTodoDialog) {
   });
 }
 
-// Load todos on page load
-loadTodolist();
+// Load todos on page load only when todo list exists
+if (todoList) {
+  loadTodolist();
+}
 // and update any open mini-game with the initial count
 updateMiniGameUnlock();
 
@@ -394,7 +410,7 @@ function loadStopwatch() {
           <button id="stop">Stop</button>
           <button id="reset">Reset</button>
         </div>
-        
+
       </div>
     `;
     const tabContent = document.querySelector('.tab-content');
@@ -418,86 +434,150 @@ function loadStopwatch() {
 }
 
 // ==================== Custom Links ====================
+
+function getSavedLinks() {
+  try {
+    return JSON.parse(localStorage.getItem(SAVED_LINKS_KEY) || '[]');
+  } catch (error) {
+    console.error('Failed to parse saved links', error);
+    return [];
+  }
+}
+
+function saveLinks(links) {
+  localStorage.setItem(SAVED_LINKS_KEY, JSON.stringify(links));
+}
+
 function loadCustomLinks() {
   const appsDiv = document.querySelector('.apps');
-  if (!appsDiv) return;
+  if (!appsDiv) {
+    console.log('ERROR: .apps div not found');
+    return;
+  }
 
-  // Clear existing custom links (keep the hardcoded ones)
-  const existingCustom = appsDiv.querySelectorAll('.custom-link');
-  existingCustom.forEach(link => link.remove());
+  // Remove any previously rendered custom link wrappers without touching hardcoded links
+  appsDiv.querySelectorAll('.custom-link-wrapper').forEach(wrapper => wrapper.remove());
 
-  // Load from localStorage
-  const customLinks = JSON.parse(localStorage.getItem('customLinks') || '[]');
-  customLinks.forEach(link => {
-    const a = document.createElement('a');
-    a.href = link.url;
-    a.target = '_blank';
-    a.textContent = link.name;
-    a.className = 'custom-link';
-    appsDiv.appendChild(a);
-  });
+  const customLinks = getSavedLinks();
+  customLinks.forEach(link => appendCustomLink(appsDiv, link.name, link.url));
+}
+
+function appendCustomLink(appsDiv, name, href) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'custom-link-wrapper';
+
+  const a = document.createElement('a');
+  a.href = href;
+  a.target = '_blank';
+  a.textContent = name;
+  a.className = 'custom-link';
+  a.rel = 'noopener noreferrer';
+
+  const removeBtn = document.createElement('button');
+  removeBtn.type = 'button';
+  removeBtn.className = 'remove-link-btn';
+  removeBtn.title = 'Remove link';
+  removeBtn.textContent = '×';
+  removeBtn.onclick = () => removeCustomLink(name, href);
+
+  wrapper.appendChild(a);
+  wrapper.appendChild(removeBtn);
+  appsDiv.appendChild(wrapper);
 }
 
 function addCustomLink() {
+  console.log('Homepage add link button clicked');
   const form = document.getElementById('addLinkForm');
-  form.style.display = 'block';
-  document.getElementById('addLinkBtn').style.display = 'none';
+  const button = document.getElementById('addLinkBtn');
+  if (!form || !button) {
+    console.warn('Add link form or button not found');
+    return;
+  }
+
+  form.style.setProperty('display', 'block', 'important');
+  button.style.setProperty('display', 'none', 'important');
 }
 
 function saveCustomLink() {
-  const name = document.getElementById('linkName').value.trim();
-  const url = document.getElementById('linkUrl').value.trim();
+  console.log('Homepage save link button clicked');
+  const nameInput = document.getElementById('linkName');
+  const urlInput = document.getElementById('linkUrl');
+  if (!nameInput || !urlInput) {
+    console.warn('Link name or URL input not found');
+    return;
+  }
+
+  const name = nameInput.value.trim();
+  let url = urlInput.value.trim();
 
   if (!name || !url) {
     alert('Please enter both name and URL.');
     return;
   }
 
-  // Ensure URL has protocol
-  let fullUrl = url;
   if (!url.startsWith('http://') && !url.startsWith('https://')) {
-    fullUrl = 'https://' + url;
+    url = 'https://' + url;
   }
 
-  const customLinks = JSON.parse(localStorage.getItem('customLinks') || '[]');
-  customLinks.push({ name, url: fullUrl });
-  localStorage.setItem('customLinks', JSON.stringify(customLinks));
+  const savedLinks = getSavedLinks();
+  if (!savedLinks.some(link => link.name === name && link.url === url)) {
+    savedLinks.push({ name, url });
+    saveLinks(savedLinks);
+  }
 
-  // Clear form
-  document.getElementById('linkName').value = '';
-  document.getElementById('linkUrl').value = '';
+  nameInput.value = '';
+  urlInput.value = '';
 
-  // Hide form
-  document.getElementById('addLinkForm').style.display = 'none';
-  document.getElementById('addLinkBtn').style.display = 'inline-block';
+  const form = document.getElementById('addLinkForm');
+  const button = document.getElementById('addLinkBtn');
+  if (form) form.style.setProperty('display', 'none', 'important');
+  if (button) button.style.setProperty('display', 'inline-block', 'important');
 
   loadCustomLinks();
 }
 
-function cancelAddLink() {
-  // Clear form
-  document.getElementById('linkName').value = '';
-  document.getElementById('linkUrl').value = '';
-
-  // Hide form
-  document.getElementById('addLinkForm').style.display = 'none';
-  document.getElementById('addLinkBtn').style.display = 'inline-block';
+function removeCustomLink(name, url) {
+  const savedLinks = getSavedLinks().filter(link => !(link.name === name && link.url === url));
+  saveLinks(savedLinks);
+  loadCustomLinks();
 }
 
-// Add event listener for add link button
-document.addEventListener('DOMContentLoaded', () => {
-  const addLinkBtn = document.getElementById('addLinkBtn');
-  if (addLinkBtn) {
-    addLinkBtn.addEventListener('click', addCustomLink);
-  }
+function cancelAddLink() {
+  console.log('Homepage cancel link button clicked');
+  const nameInput = document.getElementById('linkName');
+  const urlInput = document.getElementById('linkUrl');
+  if (nameInput) nameInput.value = '';
+  if (urlInput) urlInput.value = '';
 
-  const saveLinkBtn = document.getElementById('saveLinkBtn');
-  if (saveLinkBtn) {
-    saveLinkBtn.addEventListener('click', saveCustomLink);
-  }
+  const form = document.getElementById('addLinkForm');
+  const button = document.getElementById('addLinkBtn');
+  if (form) form.style.setProperty('display', 'none', 'important');
+  if (button) button.style.setProperty('display', 'inline-block', 'important');
+}
 
-  const cancelLinkBtn = document.getElementById('cancelLinkBtn');
-  if (cancelLinkBtn) {
-    cancelLinkBtn.addEventListener('click', cancelAddLink);
+// Function to attach homepage link listeners
+function initHomepageLinks() {
+  const homepageContainer = document.querySelector('.homepage-container');
+  if (homepageContainer) {
+    homepageContainer.addEventListener('click', (e) => {
+      if (e.target.id === 'addLinkBtn') {
+        addCustomLink();
+      } else if (e.target.id === 'saveLinkBtn') {
+        saveCustomLink();
+      } else if (e.target.id === 'cancelLinkBtn') {
+        cancelAddLink();
+      }
+    });
   }
-});
+}
+
+// Initialize on page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initHomepageLinks();
+    loadCustomLinks();
+  });
+} else {
+  initHomepageLinks();
+  loadCustomLinks();
+}
